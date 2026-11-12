@@ -1,0 +1,45 @@
+
+{% load static %}
+<html>
+    <head>
+        <title>Django blog</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro: ">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    </head>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Blog</title>
+</head>
+<body>
+    <header>
+        <!-- modified for the form display -->
+        <div class="nav-left">
+             <h1><a href="{% url 'home' %}">Blog Application</a></h1>
+        </div>
+        <div class="nav-right">
+            <a href="{% url 'post_new' %}">+ New Blog Post</a>
+        </div>
+    </header>
+    <!-- modification for the log out form  -->
+        {%  if user.is_authenticated %}
+   <p>Hi {{ user.username }}!</p>
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+    {% else %}
+    <p>You are not logged in.</p>
+    <a href="{% url 'login' %}">Log In</a>
+    {% endif %}
+{% block content %}
+{% endblock content %}
+<div>
+</div>
+</body>
+</html>
